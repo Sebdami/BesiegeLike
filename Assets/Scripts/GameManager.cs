@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour {
     GameObject preview;
 
     bool disableBuildingControls = false;
+    bool disableCameraControls = false;
 
     GameStateEnum gameState = GameStateEnum.Editor;
 
@@ -72,6 +73,19 @@ public class GameManager : MonoBehaviour {
         set
         {
             disableBuildingControls = value;
+        }
+    }
+
+    public bool DisableCameraControls
+    {
+        get
+        {
+            return disableCameraControls;
+        }
+
+        set
+        {
+            disableCameraControls = value;
         }
     }
 

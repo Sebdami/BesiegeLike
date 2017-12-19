@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224037846421005584}
   - component: {fileID: 222786570424511830}
   - component: {fileID: 114380313071617462}
+  - component: {fileID: 114766731957015872}
   m_Layer: 5
   m_Name: UIRaycastBlocker
   m_TagString: Untagged
@@ -94,6 +95,7 @@ GameObject:
   - component: {fileID: 222898534005679434}
   - component: {fileID: 114446351268557110}
   - component: {fileID: 114340849807856768}
+  - component: {fileID: 114624676564869376}
   m_Layer: 5
   m_Name: Reset
   m_TagString: Untagged
@@ -320,6 +322,7 @@ GameObject:
   - component: {fileID: 222379884457029760}
   - component: {fileID: 114923344838826990}
   - component: {fileID: 114952004645263910}
+  - component: {fileID: 114609193551511128}
   m_Layer: 5
   m_Name: Load
   m_TagString: Untagged
@@ -353,6 +356,7 @@ GameObject:
   - component: {fileID: 222191263877974204}
   - component: {fileID: 114654729854207162}
   - component: {fileID: 114597329028048770}
+  - component: {fileID: 114326475443387626}
   m_Layer: 5
   m_Name: Save
   m_TagString: Untagged
@@ -512,6 +516,7 @@ GameObject:
   - component: {fileID: 222586354876522540}
   - component: {fileID: 114181525429979256}
   - component: {fileID: 114773563261465888}
+  - component: {fileID: 114008237663845760}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -566,6 +571,7 @@ GameObject:
   - component: {fileID: 114068539646807874}
   - component: {fileID: 222062715359059284}
   - component: {fileID: 114785040016368206}
+  - component: {fileID: 114389489323895774}
   m_Layer: 5
   m_Name: Blocks
   m_TagString: Untagged
@@ -601,6 +607,7 @@ GameObject:
   - component: {fileID: 224710636382237406}
   - component: {fileID: 222160117298684266}
   - component: {fileID: 114149774938659652}
+  - component: {fileID: 114651851653188078}
   m_Layer: 5
   m_Name: UIRaycastBlocker
   m_TagString: Untagged
@@ -711,6 +718,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114008237663845760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1696234312651144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966dd68708b9bb64f95f67270057ce16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114013521972923802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1376,6 +1394,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Load Vehicle
+--- !u!114 &114326475443387626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404559546352474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966dd68708b9bb64f95f67270057ce16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114340849807856768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1521,6 +1550,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114389489323895774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1817970753887308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966dd68708b9bb64f95f67270057ce16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114405174768513990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2052,6 +2092,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114609193551511128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1350143133467962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966dd68708b9bb64f95f67270057ce16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114609283303144414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2168,6 +2219,28 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Double
+--- !u!114 &114624676564869376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1179698664889250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966dd68708b9bb64f95f67270057ce16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114651851653188078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853320684217766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966dd68708b9bb64f95f67270057ce16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114654729854207162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2392,6 +2465,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Load Vehicle
+--- !u!114 &114766731957015872
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013408148881922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966dd68708b9bb64f95f67270057ce16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114767602924556604
 MonoBehaviour:
   m_ObjectHideFlags: 1

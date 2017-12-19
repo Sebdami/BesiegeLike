@@ -27,7 +27,7 @@ public class EditorCameraController : MonoBehaviour {
     }
 
     void Update () {
-        if(GameManager.instance.GameState == GameManager.GameStateEnum.Editor && !GameManager.instance.DisableBuildingControls)
+        if(GameManager.instance.GameState == GameManager.GameStateEnum.Editor && !GameManager.instance.DisableCameraControls)
         {
             transform.LookAt(CameraPoint);
             transform.RotateAround(CameraPoint.position, Vector3.up, -Input.GetAxisRaw("Horizontal") * Time.unscaledDeltaTime * rotateSpeedY);

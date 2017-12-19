@@ -38,11 +38,15 @@ public class UIManager : MonoBehaviour {
         saveButton.interactable = false;
         saveNameInput.text = string.Empty;
         GameManager.instance.DisableBuildingControls = true;
+        GameManager.instance.DisableCameraControls = true;
+        UIElement.DisableDisabling = true;
     }
 
     public void CloseSavePanel()
     {
         GameManager.instance.DisableBuildingControls = false;
+        GameManager.instance.DisableCameraControls = false;
+        UIElement.DisableDisabling = false;
         SavePanel.SetActive(false);
     }
 
@@ -68,11 +72,15 @@ public class UIManager : MonoBehaviour {
         UpdateLoadPanel();
         LoadPanel.SetActive(true);
         GameManager.instance.DisableBuildingControls = true;
+        GameManager.instance.DisableCameraControls = true;
+        UIElement.DisableDisabling = true;
     }
 
     public void CloseLoadPanel()
     {
         GameManager.instance.DisableBuildingControls = false;
+        GameManager.instance.DisableCameraControls = false;
+        UIElement.DisableDisabling = false;
         LoadPanel.SetActive(false);
     }
 
