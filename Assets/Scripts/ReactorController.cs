@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ReactorController : MonoBehaviour {
+    [SerializeField]
     float thrust = 5.0f;
     [SerializeField]
-    KeyCode key = KeyCode.Space;
+    KeyCode key;
 
     public KeyCode Key
     {
