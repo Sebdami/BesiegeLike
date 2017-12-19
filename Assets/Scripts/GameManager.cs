@@ -26,8 +26,9 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     GameObject selectedBlock;
 
-    [SerializeField]
     GameObject vehicle;
+
+    GameObject preview;
 
     bool disableBuildingControls = false;
 
@@ -74,6 +75,30 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public GameObject SelectedBlock
+    {
+        get
+        {
+            return selectedBlock;
+        }
+
+        set
+        {
+            selectedBlock = value;
+            if (preview)
+                DestroyImmediate(preview);
+            preview = Instantiate(selectedBlock);
+            if(preview.GetComponent<Collider>())
+                DestroyImmediate(preview.GetComponent<Collider>());
+            MeshRenderer[] renderers = preview.GetComponentsInChildren<MeshRenderer>();
+            for(int i = 0; i < renderers.Length; i++)
+            {
+                renderers[i].material.SetColor("_EmissionColor", Color.white);
+            }
+            preview.SetActive(false);
+        }
+    }
+
     private void Start()
     {
         if (!instance)
@@ -83,6 +108,7 @@ public class GameManager : MonoBehaviour {
         GameState = GameStateEnum.Editor;
         InitEmptyVehicle();
         Time.timeScale = 0.0f;
+        SelectedBlock = Blocks[1];
     }
 
     public void InitEmptyVehicle()
@@ -103,42 +129,63 @@ public class GameManager : MonoBehaviour {
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            selectedBlock = Blocks[1];
+            SelectedBlock = Blocks[1];
         else if(Input.GetKeyDown(KeyCode.Alpha2))
-            selectedBlock = Blocks[2];
+            SelectedBlock = Blocks[2];
         else if (Input.GetKeyDown(KeyCode.Alpha3))
-            selectedBlock = Blocks[3];
+            SelectedBlock = Blocks[3];
         if (disableBuildingControls)
+        {
+            if (preview.activeSelf)
+                preview.SetActive(false);
             return;
+        }
+            
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Block")))
         {
-            if(Input.GetMouseButtonUp(0))
+            
+            Transform anchor = hit.collider.GetComponent<Block>().GetAnchorFromPositionAndNormal(hit.point, hit.normal);
+            if (anchor != null)
             {
-                Transform anchor = hit.collider.GetComponent<Block>().GetAnchorFromPositionAndNormal(hit.point, hit.normal);
-                if(anchor != null)
+                // Check for collisions
+                Vector3 pos = anchor.localToWorldMatrix * SelectedBlock.GetComponent<Block>().Extent; // using localToWorldMatrix * instead of localToWorldMatrix.MultiplyPoint allows to only match world rotation
+                pos += anchor.position;
+                if (Physics.OverlapCapsule(anchor.position, pos, .25f).Length > 0)
+                {
+                    return;
+                }
+                preview.SetActive(true);
+                preview.transform.position = anchor.position;
+                preview.transform.rotation = anchor.rotation;
+                if (Input.GetMouseButtonUp(0))
+                {
                     AddBlock(anchor);
+                }
+                else if (Input.GetMouseButtonUp(1) && hit.collider.GetComponent<CoreBlock>() == null) //Delete blocks but not the core
+                {
+                    DeleteBlock(hit.collider.GetComponent<Block>());
+                }
+
             }
-            else if (Input.GetMouseButtonUp(1) && hit.collider.GetComponent<CoreBlock>() == null) //Delete blocks but not the core
+            else
             {
-                DeleteBlock(hit.collider.GetComponent<Block>());
+                if (preview.activeSelf)
+                    preview.SetActive(false);
             }
+        }
+        else
+        {
+            if (preview.activeSelf)
+                preview.SetActive(false);
         }
     }
 
     void AddBlock(Transform anchor)
     {
-        // Check for collisions
-        Vector3 pos = anchor.localToWorldMatrix * selectedBlock.GetComponent<Block>().Extent; // using localToWorldMatrix * instead of localToWorldMatrix.MultiplyPoint allows to only match world rotation
-        pos += anchor.position;
-        if (Physics.OverlapCapsule(anchor.position, pos, .25f).Length > 0)
-        {
-            return;
-        }
-        
         //For now only instantiate
-        GameObject go = Instantiate(selectedBlock, anchor);
+        GameObject go = Instantiate(SelectedBlock, anchor);
         go.transform.localPosition = Vector3.zero;
         go.transform.localRotation = Quaternion.identity;
         go.transform.SetParent(vehicle.transform);
@@ -172,12 +219,14 @@ public class GameManager : MonoBehaviour {
     {
         if (index < 0 || index >= Blocks.Length)
             return;
-        selectedBlock = Blocks[index];
+        SelectedBlock = Blocks[index];
     }
 
     public void EnterPlayMode()
     {
-        if(vehicle.GetComponent<Rigidbody>() == null)
+        if (preview.activeSelf)
+            preview.SetActive(false);
+        if (vehicle.GetComponent<Rigidbody>() == null)
         {
             Rigidbody rb = vehicle.AddComponent<Rigidbody>();
             rb.useGravity = false;

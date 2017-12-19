@@ -153,7 +153,7 @@ public class Block : MonoBehaviour {
             return null;
         }
 
-        //Now find in which unit we are and if an anchor exists here
+        // Now find in which unit we are and if an anchor exists here
 
         AnchorDirection ad = anchorsDirection[index];
         if (ad.Anchors.Length <= 0)
