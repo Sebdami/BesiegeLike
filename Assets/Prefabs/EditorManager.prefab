@@ -56,6 +56,6 @@ MonoBehaviour:
   - {fileID: 1222486237460138, guid: 03efa34a07e7cb34d9dfee525718d0ce, type: 2}
   - {fileID: 1222486237460138, guid: 9df60d6db4673e7418cb31c3c71e61b8, type: 2}
   - {fileID: 1192127259689998, guid: 185aee9bffafb4546810185959db2fad, type: 2}
+  - {fileID: 1242098118571400, guid: 20179fc8a28982c439ef04eb58913fcd, type: 2}
   selectedBlock: {fileID: 1222486237460138, guid: 03efa34a07e7cb34d9dfee525718d0ce,
     type: 2}
-  vehicle: {fileID: 0}

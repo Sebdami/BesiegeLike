@@ -177,16 +177,15 @@ public class GameManager : MonoBehaviour {
                 {
                     AddBlock(anchor);
                 }
-                else if (Input.GetMouseButtonUp(1) && hit.collider.GetComponent<CoreBlock>() == null) //Delete blocks but not the core
-                {
-                    DeleteBlock(hit.collider.GetComponent<Block>());
-                }
-
             }
             else
             {
                 if (preview.activeSelf)
                     preview.SetActive(false);
+            }
+            if (Input.GetMouseButtonUp(1) && hit.collider.GetComponent<CoreBlock>() == null) //Delete blocks but not the core
+            {
+                DeleteBlock(hit.collider.GetComponent<Block>());
             }
         }
         else
