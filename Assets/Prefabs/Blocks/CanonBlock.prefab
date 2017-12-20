@@ -289,4 +289,4 @@ MonoBehaviour:
     type: 2}
   CanonEnd: {fileID: 4729877897187380}
   key: 99
-  shootForce: 50
+  shootForce: 100
