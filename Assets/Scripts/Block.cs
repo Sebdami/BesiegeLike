@@ -55,14 +55,16 @@ public class Block : MonoBehaviour {
     public static float unitSize = 1.0f;
 
     [SerializeField]
-    int id;
+    protected int id;
     [SerializeField]
-    string blockName;
+    protected string blockName;
     [SerializeField]
-    Vector3 extent;
+    protected Vector3 extent;
+    [SerializeField]
+    protected int hp = 1;
     [Header("Hierarchy: Right, Left, Front, Back, Up, Down")]
     [SerializeField]
-    AnchorDirection[] anchorsDirection = new AnchorDirection[6];
+    protected AnchorDirection[] anchorsDirection = new AnchorDirection[6];
 
     public AnchorDirection[] AnchorsDirection
     {
@@ -113,6 +115,23 @@ public class Block : MonoBehaviour {
         set
         {
             blockName = value;
+        }
+    }
+
+    public int Hp
+    {
+        get
+        {
+            return hp;
+        }
+    }
+
+    public void DamageBlock()
+    {
+        hp--;
+        if(hp <= 0)
+        {
+
         }
     }
 

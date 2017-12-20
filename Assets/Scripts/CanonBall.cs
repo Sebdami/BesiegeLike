@@ -6,7 +6,7 @@ public class CanonBall : MonoBehaviour {
 
     private void Start()
     {
-        Destroy(gameObject, 10.0f);
+        Destroy(gameObject, 5.0f);
     }
 
     //Temporary
