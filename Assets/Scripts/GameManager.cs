@@ -120,12 +120,12 @@ public class GameManager : MonoBehaviour {
         else
             Destroy(gameObject);
         GameState = GameStateEnum.Editor;
-        InitEmptyVehicle();
+        InitEmptyVehicleWithCore();
         Time.timeScale = 0.0f;
         SelectedBlock = Blocks[1];
     }
 
-    public void InitEmptyVehicle()
+    public void InitEmptyVehicleWithCore()
     {
         if (vehicle)
             DestroyImmediate(vehicle);
@@ -138,6 +138,18 @@ public class GameManager : MonoBehaviour {
 
         AddBlock(Blocks[0], vehicle.transform.position, vehicle.transform.rotation);
 
+    }
+
+    public void InitEmptyVehicle()
+    {
+        if (vehicle)
+            DestroyImmediate(vehicle);
+
+        vehicle = new GameObject("Vehicle", typeof(Rigidbody));
+        Rigidbody rb = vehicle.GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.drag = 0.5f;
+        rb.angularDrag = 2.0f;
     }
 
     private void Update()

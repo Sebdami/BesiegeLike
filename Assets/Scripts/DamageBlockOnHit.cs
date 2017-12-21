@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanonBall : MonoBehaviour {
-
-    private void Start()
-    {
-        Destroy(gameObject, 5.0f);
-    }
+public class DamageBlockOnHit : MonoBehaviour {
 
     //Temporary
     private void OnCollisionEnter(Collision collision)
@@ -16,7 +11,6 @@ public class CanonBall : MonoBehaviour {
         if (collision.relativeVelocity.magnitude > 5.0f && collision.collider.GetComponent<Block>())
         {
             collision.collider.GetComponent<Block>().DamageBlock();
-            Destroy(gameObject);
         }
     }
 }

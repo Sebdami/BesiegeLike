@@ -131,7 +131,9 @@ public class Block : MonoBehaviour {
         hp--;
         if(hp <= 0)
         {
-
+            transform.SetParent(null);
+            if (!GetComponent<Rigidbody>())
+               gameObject.AddComponent<Rigidbody>().useGravity = false;
         }
     }
 
