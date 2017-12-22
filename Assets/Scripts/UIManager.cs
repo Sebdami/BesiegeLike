@@ -28,8 +28,28 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     RectTransform vehicleButtons;
 
+    bool needToReenableControls = false;
+
+    float controlsTimer = 0.0f;
+    float controlsMaxTime = 0.2f;
+
     private void Start()
     {
+        
+    }
+
+    private void Update()
+    {
+        controlsTimer += Time.unscaledDeltaTime;
+        if (needToReenableControls)
+        {
+            if(controlsTimer > controlsMaxTime)
+            {
+                needToReenableControls = false;
+                ReEnableControls();
+                controlsTimer = 0.0f;
+            }
+        }
     }
 
     public void OpenSavePanel()
@@ -44,10 +64,15 @@ public class UIManager : MonoBehaviour {
 
     public void CloseSavePanel()
     {
-        GameManager.instance.DisableBuildingControls = false;
         GameManager.instance.DisableCameraControls = false;
-        UIElement.DisableDisabling = false;
+        needToReenableControls = true;
         SavePanel.SetActive(false);
+    }
+
+    void ReEnableControls()
+    {
+        GameManager.instance.DisableBuildingControls = false;
+        UIElement.DisableDisabling = false;
     }
 
     public void OnSaveNameInputValueChanged()
@@ -78,9 +103,8 @@ public class UIManager : MonoBehaviour {
 
     public void CloseLoadPanel()
     {
-        GameManager.instance.DisableBuildingControls = false;
         GameManager.instance.DisableCameraControls = false;
-        UIElement.DisableDisabling = false;
+        needToReenableControls = true;
         LoadPanel.SetActive(false);
     }
 
