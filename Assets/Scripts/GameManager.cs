@@ -279,6 +279,10 @@ public class GameManager : MonoBehaviour {
         //rb.angularVelocity = Vector3.zero;
         //vehicle.transform.position = Vector3.zero;
         //vehicle.transform.rotation = Quaternion.identity;
+        GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
+        foreach(GameObject go in projectiles)
+            Destroy(go);
+
         this.enabled = true;
         Time.timeScale = 0.0f;
         GameState = GameStateEnum.Editor;
