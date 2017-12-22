@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23759128493398500}
   - component: {fileID: 54815568588927728}
   - component: {fileID: 114182317327747860}
+  - component: {fileID: 114232840375460986}
   m_Layer: 0
   m_Name: CanonBall
   m_TagString: Untagged
@@ -107,6 +108,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ca370c8b4c503f4bbd6c41cacef9a6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114232840375460986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259528232613462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b6769269457994288dd93f12510d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135341525218173720
