@@ -19,7 +19,7 @@ public class CoreBlock : Block {
         }
     }
 
-    public new void DamageBlock()
+    public override void DamageBlock()
     {
         hp--;
         if(hp <= 0)

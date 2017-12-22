@@ -2,24 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReactorController : MonoBehaviour {
+public class ReactorController : SpecialBlock {
     [SerializeField]
     float thrust = 5.0f;
-    [SerializeField]
-    KeyCode key;
-
-    public KeyCode Key
-    {
-        get
-        {
-            return key;
-        }
-
-        set
-        {
-            key = value;
-        }
-    }
 
     void Start () {
         Vector3 vec = Utils.GetClosestCartesianFromVector(-transform.forward);

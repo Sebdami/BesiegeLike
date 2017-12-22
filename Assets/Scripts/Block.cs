@@ -126,12 +126,12 @@ public class Block : MonoBehaviour {
         }
     }
 
-    public void DamageBlock()
+    public virtual void DamageBlock()
     {
         hp--;
         if(hp <= 0)
         {
-            transform.SetParent(null);
+            //transform.SetParent(null);
             if (!GetComponent<Rigidbody>())
                gameObject.AddComponent<Rigidbody>().useGravity = false;
         }

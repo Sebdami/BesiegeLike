@@ -12,10 +12,10 @@ public class CanonBall : MonoBehaviour {
     //Temporary
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.relativeVelocity.magnitude);
         if (collision.relativeVelocity.magnitude > 5.0f && collision.collider.GetComponent<Block>())
         {
-            collision.collider.GetComponent<Block>().DamageBlock();
+            if(collision.collider.GetComponent<Block>())
+                collision.collider.GetComponent<Block>().DamageBlock();
             Destroy(gameObject);
         }
     }

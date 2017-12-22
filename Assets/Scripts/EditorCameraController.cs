@@ -46,15 +46,15 @@ public class EditorCameraController : MonoBehaviour {
         //}
     }
 
-    void ChangeControlsWithGameState()
+    void ChangeControlsWithGameState(GameManager.GameStateEnum state)
     {
-        if(GameManager.instance.GameState == GameManager.GameStateEnum.Editor)
+        if(state == GameManager.GameStateEnum.Editor)
         {
             //temp
             transform.SetParent(null);
             transform.position = startPos;
         }
-        else if(GameManager.instance.GameState == GameManager.GameStateEnum.Play)
+        else if(state == GameManager.GameStateEnum.Play)
         {
             startPos = transform.position;
             //temp

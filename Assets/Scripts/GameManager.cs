@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
         Play
     }
     public static GameManager instance;
-    public delegate void GameStateChange();
+    public delegate void GameStateChange(GameStateEnum state);
 
     public static GameStateChange OnGameStateChange;
     [SerializeField]
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour {
         {
             gameState = value;
             if (OnGameStateChange != null)
-                OnGameStateChange();
+                OnGameStateChange(value);
         }
     }
 
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour {
     public void InitEmptyVehicle()
     {
         if (vehicle)
-            DestroyImmediate(vehicle);
+            Destroy(vehicle);
 
         vehicle = new GameObject("Vehicle", typeof(Rigidbody));
         Rigidbody rb = vehicle.GetComponent<Rigidbody>();

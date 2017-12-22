@@ -26,7 +26,26 @@ public class UIManager : MonoBehaviour {
     GameObject LoadPanel;
 
     [SerializeField]
+    Button loadButton;
+
+    [SerializeField]
     RectTransform vehicleButtons;
+
+    [Space(10)]
+    [Header("Other")]
+
+
+    [SerializeField]
+    Button resetButton;
+
+    [SerializeField]
+    Button playButton;
+
+    [SerializeField]
+    Button buildButton;
+
+    [SerializeField]
+    GameObject blocksButton;
 
     bool needToReenableControls = false;
 
@@ -35,7 +54,20 @@ public class UIManager : MonoBehaviour {
 
     private void Start()
     {
-        
+        GameManager.OnGameStateChange += GameStateChanged;
+    }
+
+    void GameStateChanged(GameManager.GameStateEnum state)
+    {
+        switch(state)
+        {
+            case GameManager.GameStateEnum.Play:
+                DisableEditorUI();
+                break;
+            case GameManager.GameStateEnum.Editor:
+                EnableEditorUI();
+                break;
+        }
     }
 
     private void Update()
@@ -50,6 +82,36 @@ public class UIManager : MonoBehaviour {
                 controlsTimer = 0.0f;
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChange -= GameStateChanged;
+    }
+
+
+    void DisableEditorUI()
+    {
+        buildButton.gameObject.SetActive(true);
+
+        playButton.gameObject.SetActive(false);
+        resetButton.gameObject.SetActive(false);
+        vehicleButtons.gameObject.SetActive(false);
+        saveButton.gameObject.SetActive(false);
+        loadButton.gameObject.SetActive(false);
+        blocksButton.SetActive(false);
+    }
+
+    void EnableEditorUI()
+    {
+        buildButton.gameObject.SetActive(false);
+
+        playButton.gameObject.SetActive(true);
+        resetButton.gameObject.SetActive(true);
+        vehicleButtons.gameObject.SetActive(true);
+        saveButton.gameObject.SetActive(true);
+        loadButton.gameObject.SetActive(true);
+        blocksButton.SetActive(true);
     }
 
     public void OpenSavePanel()
