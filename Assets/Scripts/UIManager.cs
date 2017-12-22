@@ -72,10 +72,11 @@ public class UIManager : MonoBehaviour {
 
     private void Update()
     {
-        controlsTimer += Time.unscaledDeltaTime;
+        
         if (needToReenableControls)
         {
-            if(controlsTimer > controlsMaxTime)
+            controlsTimer += Time.unscaledDeltaTime;
+            if (controlsTimer > controlsMaxTime)
             {
                 needToReenableControls = false;
                 ReEnableControls();
