@@ -62,6 +62,8 @@ public class Block : MonoBehaviour {
     protected Vector3 extent;
     [SerializeField]
     protected int hp = 1;
+    [SerializeField]
+    protected Sprite image; //May be a string later if needed
     [Header("Hierarchy: Right, Left, Front, Back, Up, Down")]
     [SerializeField]
     protected AnchorDirection[] anchorsDirection = new AnchorDirection[6];
@@ -123,6 +125,19 @@ public class Block : MonoBehaviour {
         get
         {
             return hp;
+        }
+    }
+
+    public Sprite Image
+    {
+        get
+        {
+            return image;
+        }
+
+        set
+        {
+            image = value;
         }
     }
 

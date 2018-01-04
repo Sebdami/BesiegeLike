@@ -427,6 +427,8 @@ MonoBehaviour:
   id: 2
   blockName: Double
   extent: {x: 0, y: 0, z: 1}
+  hp: 1
+  image: {fileID: 21300000, guid: 87a04b86ebb1e42438c2c8dc6af54620, type: 3}
   anchorsDirection:
   - anchors:
     - {fileID: 4867855822572774}

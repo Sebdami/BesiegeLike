@@ -266,6 +266,8 @@ MonoBehaviour:
   id: 4
   blockName: Canon
   extent: {x: 0, y: 0, z: 1}
+  hp: 1
+  image: {fileID: 21300000, guid: 899b5d8476b8ac44c81b872719abd5ec, type: 3}
   anchorsDirection:
   - anchors: []
   - anchors: []
@@ -285,8 +287,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0160b62abd94b44a3a823672fe1a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  key: 99
   CanonBallPrefab: {fileID: 1259528232613462, guid: fa43cce1a05a96b4cac13fe8b90fede8,
     type: 2}
   CanonEnd: {fileID: 4729877897187380}
-  key: 99
   shootForce: 100
+  shootSpeed: 0.1

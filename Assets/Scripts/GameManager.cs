@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameStateChange OnGameStateChange;
     [SerializeField]
-    GameObject[] Blocks;
+    public GameObject[] Blocks;
 
     [SerializeField]
     GameObject selectedBlock;
@@ -245,6 +246,29 @@ public class GameManager : MonoBehaviour {
         if (index < 0 || index >= Blocks.Length)
             return;
         SelectedBlock = Blocks[index];
+    }
+
+    public void SetSelectedBlockFromID(int id)
+    {
+        GameObject newBlock = GetBlockPrefabById(id);
+        if (newBlock)
+            SelectedBlock = newBlock;
+    }
+
+        public Block GetBlockById(int id)
+    {
+        Block b = Array.Find<GameObject>(Blocks, x => x.GetComponent<Block>().Id == id).GetComponent<Block>();
+        if (b)
+            return b;
+        return null;
+    }
+
+    public GameObject GetBlockPrefabById(int id)
+    {
+        GameObject go = Array.Find<GameObject>(Blocks, x => x.GetComponent<Block>().Id == id);
+        if (go)
+            return go;
+        return null;
     }
 
     public void EnterPlayMode()

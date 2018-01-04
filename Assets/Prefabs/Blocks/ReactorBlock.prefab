@@ -351,6 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 32
+  thrust: 5
 --- !u!114 &114454738740237210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,6 +366,8 @@ MonoBehaviour:
   id: 3
   blockName: Reactor
   extent: {x: 0, y: 0, z: 1}
+  hp: 1
+  image: {fileID: 21300000, guid: dbc30f6f954de284ead69cff1506c0a8, type: 3}
   anchorsDirection:
   - anchors:
     - {fileID: 4580367804504970}

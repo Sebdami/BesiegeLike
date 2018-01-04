@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     GameObject vehicleLoadButtonPrefab;
 
+    [SerializeField]
+    GameObject blockButtonPrefab;
+
     [Space(10)]
     [Header("Save")]
     [SerializeField]
@@ -45,7 +48,10 @@ public class UIManager : MonoBehaviour {
     Button buildButton;
 
     [SerializeField]
-    GameObject blocksButton;
+    GameObject blocksButtonsScrollView;
+
+    [SerializeField]
+    GameObject blocksButtons;
 
     bool needToReenableControls = false;
 
@@ -55,6 +61,7 @@ public class UIManager : MonoBehaviour {
     private void Start()
     {
         GameManager.OnGameStateChange += GameStateChanged;
+        CreateBlocksButtons();
     }
 
     void GameStateChanged(GameManager.GameStateEnum state)
@@ -100,7 +107,7 @@ public class UIManager : MonoBehaviour {
         vehicleButtons.gameObject.SetActive(false);
         saveButton.gameObject.SetActive(false);
         loadButton.gameObject.SetActive(false);
-        blocksButton.SetActive(false);
+        blocksButtonsScrollView.SetActive(false);
     }
 
     void EnableEditorUI()
@@ -112,7 +119,7 @@ public class UIManager : MonoBehaviour {
         vehicleButtons.gameObject.SetActive(true);
         saveButton.gameObject.SetActive(true);
         loadButton.gameObject.SetActive(true);
-        blocksButton.SetActive(true);
+        blocksButtonsScrollView.SetActive(true);
     }
 
     public void OpenSavePanel()
@@ -192,4 +199,25 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+
+    public void CreateBlocksButtons()
+    {
+        while (blocksButtons.transform.childCount > 0)
+        {
+            DestroyImmediate(blocksButtons.transform.GetChild(0).gameObject);
+        }
+
+        for(int i = 0; i < GameManager.instance.Blocks.Length; i++)
+        {
+            //Ignore Core block
+            if (GameManager.instance.Blocks[i].GetComponent<CoreBlock>())
+                continue;
+            Button blockButton = Instantiate(blockButtonPrefab, blocksButtons.transform).GetComponent<Button>();
+            Block block = GameManager.instance.Blocks[i].GetComponent<Block>();
+            blockButton.onClick.RemoveAllListeners();
+            blockButton.onClick.AddListener(() => GameManager.instance.SetSelectedBlockFromID(block.Id));
+            blockButton.GetComponentInChildren<Text>().text = block.BlockName;
+            blockButton.GetComponent<Image>().sprite = block.Image;
+        }
+    }
 }
