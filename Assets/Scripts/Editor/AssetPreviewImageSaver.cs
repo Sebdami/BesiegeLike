@@ -7,7 +7,7 @@ using System.IO;
 public class AssetPreviewImageSaver : EditorWindow
 {
     Object selectedAsset;
-    [MenuItem("Tools/Asset Preview Image Saver")]
+    [MenuItem("Window/Asset Preview Image Saver")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(AssetPreviewImageSaver));
