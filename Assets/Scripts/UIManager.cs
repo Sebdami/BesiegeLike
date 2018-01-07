@@ -61,7 +61,11 @@ public class UIManager : MonoBehaviour {
     private void Start()
     {
         GameManager.OnGameStateChange += GameStateChanged;
-        CreateBlocksButtons();
+        if (GameManager.instance.BlocksInitialised) // if the blocks already have been initialized, create the buttons
+            CreateBlocksButtons(); 
+        GameManager.OnBlocksInitialised += CreateBlocksButtons; //Add this event anyway in case we call Load Blocks later in game
+
+        //CreateBlocksButtons(); //Temporary
     }
 
     void GameStateChanged(GameManager.GameStateEnum state)
@@ -95,6 +99,7 @@ public class UIManager : MonoBehaviour {
     private void OnDestroy()
     {
         GameManager.OnGameStateChange -= GameStateChanged;
+        GameManager.OnBlocksInitialised -= CreateBlocksButtons;
     }
 
 

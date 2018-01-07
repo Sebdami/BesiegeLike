@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
 public static class Directories
 {
     public static string VEHICLE_SAVE_DIRECTORY { get { return "SavedVehicles/"; } }
     public static string CACHE_DIRECTORY { get { return "Cache/"; } }
+    public static string BLOCK_BUNDLES_DIRECTORY { get { return "AssetBundles/StandaloneWindows/blocks/"; } }
 }
 
 public class GameManager : MonoBehaviour {
@@ -19,7 +21,9 @@ public class GameManager : MonoBehaviour {
     }
     public static GameManager instance;
     public delegate void GameStateChange(GameStateEnum state);
+    public delegate void Initialisation();
 
+    public static Initialisation OnBlocksInitialised;
     public static GameStateChange OnGameStateChange;
     [SerializeField]
     public GameObject[] Blocks;
@@ -33,7 +37,7 @@ public class GameManager : MonoBehaviour {
 
     bool disableBuildingControls = false;
     bool disableCameraControls = false;
-
+    bool blocksInitialised = false;
     GameStateEnum gameState = GameStateEnum.Editor;
 
     public GameObject Vehicle
@@ -90,6 +94,19 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public bool BlocksInitialised
+    {
+        get
+        {
+            return blocksInitialised;
+        }
+
+        set
+        {
+            blocksInitialised = value;
+        }
+    }
+
     public GameObject SelectedBlock
     {
         get
@@ -121,9 +138,14 @@ public class GameManager : MonoBehaviour {
         else
             Destroy(gameObject);
         GameState = GameStateEnum.Editor;
-        InitEmptyVehicleWithCore();
         Time.timeScale = 0.0f;
-        SelectedBlock = Blocks[1];
+        //SelectedBlock = Blocks[1];
+        StartCoroutine(LoadBlocks());
+    }
+
+    void InitAfterBlockLoad()
+    {
+        InitEmptyVehicleWithCore();
     }
 
     public void InitEmptyVehicleWithCore()
@@ -155,15 +177,10 @@ public class GameManager : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            SelectedBlock = Blocks[1];
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
-            SelectedBlock = Blocks[2];
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-            SelectedBlock = Blocks[3];
-        if (disableBuildingControls)
+        
+        if (disableBuildingControls || !blocksInitialised)
         {
-            if (preview.activeSelf)
+            if (preview && preview.activeSelf)
                 preview.SetActive(false);
             return;
         }
@@ -365,6 +382,52 @@ public class GameManager : MonoBehaviour {
         }
         sr.Close();
         return true;
+    }
+
+    int CompareBlockById(GameObject go1, GameObject go2)
+    {
+        int id1 = go1.GetComponent<Block>().Id;
+        int id2 = go2.GetComponent<Block>().Id;
+        if (id1 > id2)
+            return 1;
+        if (id1 < id2)
+            return -1;
+        return 0;
+    }
+
+    public IEnumerator LoadBlocks()
+    {
+        string[] blockFileNames = Directory.GetFiles(Directories.BLOCK_BUNDLES_DIRECTORY, "*.manifest");
+        List<GameObject> blockList = new List<GameObject>();   
+        foreach(string fileName in blockFileNames)
+        {
+            string bundleName = fileName.Replace(".manifest", "");
+            string uri = "file:///" + Application.dataPath + "/../" + bundleName;
+            Debug.Log(uri);
+            string assetName = fileName.Remove(0, fileName.LastIndexOf('/'));
+            UnityWebRequest request = UnityWebRequest.GetAssetBundle(uri, 0);
+            yield return request.Send();
+            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(request);
+            GameObject[] gos = bundle.LoadAllAssets<GameObject>();
+            foreach(GameObject go in gos)
+            {
+                if(go.GetComponent<Block>())
+                {
+                    if(blockList.Find( x => x.GetComponent<Block>().Id == go.GetComponent<Block>().Id))
+                    {
+                        continue;
+                    }
+                    blockList.Add(go);
+                }
+            }
+        }
+        blockList.Sort(CompareBlockById);
+        Blocks = blockList.ToArray();
+        SelectedBlock = Blocks[1];
+        if (OnBlocksInitialised != null)
+            OnBlocksInitialised();
+        blocksInitialised = true;
+        InitAfterBlockLoad();
     }
 
 }
