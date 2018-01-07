@@ -26,8 +26,10 @@ public class ReactorController : SpecialBlock {
 	void FixedUpdate () {
 		if(Input.GetKey(key))
         {
-            if(transform.parent)
+            if(isAttached)
                 transform.parent.GetComponent<Rigidbody>().AddForceAtPosition(-transform.forward * thrust, transform.position, ForceMode.Acceleration);
+            else
+                GetComponent<Rigidbody>().AddForceAtPosition(-transform.forward * thrust, transform.position, ForceMode.Acceleration);
         }
 	}
 }

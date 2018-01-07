@@ -5,7 +5,10 @@ using UnityEngine;
 public abstract class SpecialBlock : MonoBehaviour
 {
     [SerializeField]
-    public KeyCode key; // Set the default value on the prefab
+    protected KeyCode key; // Set the default value on the prefab
+
+    protected bool isAttached = true;
+
     public KeyCode Key
     {
         get
@@ -17,6 +20,19 @@ public abstract class SpecialBlock : MonoBehaviour
         {
             key = value;
 
+        }
+    }
+
+    public bool IsAttached
+    {
+        get
+        {
+            return isAttached;
+        }
+
+        set
+        {
+            isAttached = value;
         }
     }
 }

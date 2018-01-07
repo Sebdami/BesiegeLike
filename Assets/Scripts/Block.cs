@@ -149,6 +149,14 @@ public class Block : MonoBehaviour {
             //transform.SetParent(null);
             if (!GetComponent<Rigidbody>())
                gameObject.AddComponent<Rigidbody>().useGravity = false;
+            SpecialBlock[] specialBlockScripts = GetComponents<SpecialBlock>();
+            if(specialBlockScripts != null)
+            {
+                foreach(SpecialBlock special in specialBlockScripts)
+                {
+                    special.IsAttached = false;
+                }
+            }
         }
     }
 

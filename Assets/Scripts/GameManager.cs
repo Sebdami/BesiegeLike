@@ -403,7 +403,6 @@ public class GameManager : MonoBehaviour {
         {
             string bundleName = fileName.Replace(".manifest", "");
             string uri = "file:///" + Application.dataPath + "/../" + bundleName;
-            Debug.Log(uri);
             string assetName = fileName.Remove(0, fileName.LastIndexOf('/'));
             UnityWebRequest request = UnityWebRequest.GetAssetBundle(uri, 0);
             yield return request.Send();
