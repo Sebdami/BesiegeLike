@@ -2230,7 +2230,7 @@ Prefab:
     - target: {fileID: 224650567994002424, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -32
       objectReference: {fileID: 0}
     - target: {fileID: 224067526611837890, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
@@ -2250,7 +2250,7 @@ Prefab:
     - target: {fileID: 224067526611837890, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -32
       objectReference: {fileID: 0}
     - target: {fileID: 224198280443169446, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
@@ -2270,7 +2270,7 @@ Prefab:
     - target: {fileID: 224198280443169446, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -32
       objectReference: {fileID: 0}
     - target: {fileID: 224338421058356222, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
@@ -2290,7 +2290,7 @@ Prefab:
     - target: {fileID: 224338421058356222, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -32
       objectReference: {fileID: 0}
     - target: {fileID: 224750104034284442, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
@@ -2300,7 +2300,7 @@ Prefab:
     - target: {fileID: 224750104034284442, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 224136763424395896, guid: 647decd7fc4cc494f80c6a72f8b9e7a6,
         type: 2}
@@ -3604,8 +3604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616d36e39009400498a962608e3e55c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleToSpawn: {fileID: 1186078733121654, guid: 1e514c7d5b240724490ca115d2bf1c3b,
-    type: 2}
+  vehicleToSpawnFile: {fileID: 4900000, guid: 1915cb4f45a54544e93d0e4ac6fe94ed, type: 3}
   spawnPositions:
   - {fileID: 1343171294}
   - {fileID: 27954815}

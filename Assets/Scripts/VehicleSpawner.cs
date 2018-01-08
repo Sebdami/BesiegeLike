@@ -5,9 +5,10 @@ using UnityEngine;
 public class VehicleSpawner : MonoBehaviour {
     static int vehiclesRemaining = 0;
 
+    //[SerializeField]
+    //GameObject vehicleToSpawn;
     [SerializeField]
-    GameObject vehicleToSpawn;
-
+    TextAsset vehicleToSpawnFile;
     [SerializeField]
     Transform[] spawnPositions;
 
@@ -33,7 +34,10 @@ public class VehicleSpawner : MonoBehaviour {
 
 
     void Start () {
-        SpawnVehicles();
+        if (GameManager.instance.BlocksInitialised)
+            SpawnVehicles();
+        else
+            GameManager.OnBlocksInitialised += SpawnVehicles;
         GameManager.OnGameStateChange += GameStateChange;
 	}
 
@@ -51,8 +55,9 @@ public class VehicleSpawner : MonoBehaviour {
                 Destroy(go);
         foreach (Transform tr in spawnPositions)
         {
-            spawnedVehicles.Add(Instantiate(vehicleToSpawn, tr));
+            spawnedVehicles.Add(GameManager.LoadVehicleFromString(vehicleToSpawnFile.text));
             GameObject veh = spawnedVehicles[spawnedVehicles.Count - 1];
+            veh.transform.parent = tr;
             veh.transform.localPosition = Vector3.zero;
             veh.transform.localRotation = Quaternion.identity;
             SpecialBlock[] speBlocks = veh.GetComponentsInChildren<SpecialBlock>();
@@ -66,5 +71,6 @@ public class VehicleSpawner : MonoBehaviour {
     private void OnDestroy()
     {
         GameManager.OnGameStateChange -= GameStateChange;
+        GameManager.OnBlocksInitialised -= SpawnVehicles;
     }
 }

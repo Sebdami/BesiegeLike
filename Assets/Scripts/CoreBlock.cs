@@ -39,7 +39,7 @@ public class CoreBlock : Block {
                     if (transform.parent.GetChild(i).GetComponent<SpecialBlock>())
                         transform.parent.GetChild(i).GetComponent<SpecialBlock>().IsAttached = false;
                 }
-                Destroy(transform.parent, 5.0f);
+                Destroy(transform.parent.gameObject, 5.0f);
                 VehicleSpawner.VehiclesRemaining--;
             }
         }
