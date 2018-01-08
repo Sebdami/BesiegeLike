@@ -198,7 +198,7 @@ public class UIManager : MonoBehaviour {
             vehicleName = vehicleName.Replace(".sav", "");
             Button vehicleButton = Instantiate(vehicleLoadButtonPrefab, vehicleButtons).GetComponent<Button>();
             vehicleButton.onClick.RemoveAllListeners();
-            vehicleButton.onClick.AddListener(() => GameManager.instance.LoadVehicle(str));
+            vehicleButton.onClick.AddListener(() => GameManager.instance.LoadVehicle(str, true));
             vehicleButton.onClick.AddListener(() => CloseLoadPanel());
             vehicleButton.GetComponentInChildren<Text>().text = vehicleName;
         }

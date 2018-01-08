@@ -24,10 +24,12 @@ public class CoreBlock : Block {
         hp--;
         if(hp <= 0)
         {
-            if (isPlayer) // TO DO LATER : Check if player lost or won or none
+            if (isPlayer) // TODO : Check if player lost or update objective
                 GameManager.instance.ExitPlayMode();
             else
+            {
                 GameManager.instance.ExitPlayMode();
+            }
         }
     }
 }

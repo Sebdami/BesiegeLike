@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour {
         rb.drag = 0.5f;
         rb.angularDrag = 2.0f;
 
-        AddBlock(Blocks[0], vehicle.transform.position, vehicle.transform.rotation);
+        AddBlock(Blocks[0], vehicle.transform.position, vehicle.transform.rotation, true);
 
     }
 
@@ -225,13 +225,17 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void AddBlock(Transform anchor)
+    void AddBlock(Transform anchor, bool isPlayer = false)
     {
         //For now only instantiate
         GameObject go = Instantiate(SelectedBlock, anchor);
         go.transform.localPosition = Vector3.zero;
         go.transform.localRotation = Quaternion.identity;
         go.transform.SetParent(vehicle.transform);
+
+        if (isPlayer && go.GetComponent<CoreBlock>() != null)
+            go.GetComponent<CoreBlock>().IsPlayer = true;
+
         //Rigidbody rb = go.AddComponent<Rigidbody>();
         //rb.useGravity = false;
         //FixedJoint fj = go.AddComponent<FixedJoint>();
@@ -240,11 +244,16 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    void AddBlock(GameObject block, Vector3 position, Quaternion rotation)
+    void AddBlock(GameObject block, Vector3 position, Quaternion rotation, bool isPlayer = false)
     {
+
         GameObject go = Instantiate(block, vehicle.transform);
         go.transform.position = position;
         go.transform.rotation = rotation;
+
+        if (isPlayer && go.GetComponent<CoreBlock>() != null)
+            go.GetComponent<CoreBlock>().IsPlayer = true;
+
         //Rigidbody rb = go.AddComponent<Rigidbody>();
         //rb.useGravity = false;
         //FixedJoint fj = go.AddComponent<FixedJoint>();
@@ -327,7 +336,7 @@ public class GameManager : MonoBehaviour {
         this.enabled = true;
         Time.timeScale = 0.0f;
         GameState = GameStateEnum.Editor;
-        LoadVehicle(Directories.CACHE_DIRECTORY + "CachedVehicle.tmp");
+        LoadVehicle(Directories.CACHE_DIRECTORY + "CachedVehicle.tmp", true);
         File.Delete(Directories.CACHE_DIRECTORY + "CachedVehicle.tmp");
     }
 
@@ -358,7 +367,7 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    public bool LoadVehicle(string filePath)
+    public bool LoadVehicle(string filePath, bool isPlayer)
     {
         StreamReader sr = new StreamReader(filePath);
         if(sr == null)
@@ -378,7 +387,7 @@ public class GameManager : MonoBehaviour {
             string[] rotCoords = sr.ReadLine().Split(',');
             Vector3 pos = new Vector3(float.Parse(posCoords[0]), float.Parse(posCoords[1]), float.Parse(posCoords[2]));
             Quaternion rot = new Quaternion(float.Parse(rotCoords[0]), float.Parse(rotCoords[1]), float.Parse(rotCoords[2]), float.Parse(rotCoords[3]));
-            AddBlock(Blocks[id], pos, rot); // Do better by adding a GetBlockTypeById function somewhere
+            AddBlock(Blocks[id], pos, rot, isPlayer); // Do better by adding a GetBlockTypeById function somewhere
         }
         sr.Close();
         return true;
