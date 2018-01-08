@@ -7,7 +7,6 @@ public class DamageBlockOnHit : MonoBehaviour {
     //Temporary
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.relativeVelocity.magnitude);
         if (collision.relativeVelocity.magnitude > 5.0f && collision.collider.GetComponent<Block>())
         {
             collision.collider.GetComponent<Block>().DamageBlock();

@@ -41,6 +41,7 @@ public class CoreBlock : Block {
                 }
                 Destroy(transform.parent.gameObject, 5.0f);
                 VehicleSpawner.VehiclesRemaining--;
+                this.enabled = false;
             }
         }
     }
