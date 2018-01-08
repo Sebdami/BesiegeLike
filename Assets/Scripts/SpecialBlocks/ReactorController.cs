@@ -12,43 +12,56 @@ public class ReactorController : SpecialBlock {
         keys = new KeyCode[2];
         if (vec == Vector3.down)
         {
+            keys = new KeyCode[3];
             keys[0] = KeyCode.DownArrow;
+            keys[1] = KeyCode.S;
             Vector3 testPos = transform.parent.position;
             testPos.z = transform.position.z;
             Vector3 test = testPos - transform.position;
             if(Vector3.Dot(transform.parent.right, test) > 0)
             {
-                keys[1] = KeyCode.A;
+                keys[2] = KeyCode.A;
             }
             else if (Vector3.Dot(transform.position, testPos) < 0)
             {
-                keys[1] = KeyCode.E;
+                keys[2] = KeyCode.E;
             }
         }
         if (vec == Vector3.up)
         {
+            keys = new KeyCode[3];
             keys[0] = KeyCode.UpArrow;
+            keys[1] = KeyCode.Z;
             Vector3 testPos = transform.parent.position;
             testPos.z = transform.position.z;
             Vector3 test = testPos - transform.position;
             if (Vector3.Dot(transform.parent.right, test) > 0)
             {
-                keys[1] = KeyCode.E;
+                keys[2] = KeyCode.E;
             }
             else if (Vector3.Dot(transform.position, testPos) < 0)
             {
-                keys[1] = KeyCode.A;
+                keys[2] = KeyCode.A;
             }
         }
         if (vec == Vector3.right)
+        {
             keys[0] = KeyCode.RightArrow;
+            keys[1] = KeyCode.D;
+        }
         if (vec == Vector3.left)
+        {
             keys[0] = KeyCode.LeftArrow;
+            keys[1] = KeyCode.Q;
+        }
         if (vec == Vector3.forward)
+        {
             keys[0] = KeyCode.Space;
+        }
         if (vec == Vector3.back)
+        {
             keys[0] = KeyCode.LeftShift;
-        
+        }
     }
 	
 	// Update is called once per frame

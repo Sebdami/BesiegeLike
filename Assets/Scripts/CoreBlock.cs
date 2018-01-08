@@ -35,7 +35,7 @@ public class CoreBlock : Block {
                 {
                     if (!transform.parent.GetChild(i).GetComponent<Rigidbody>())
                         transform.parent.GetChild(i).gameObject.AddComponent<Rigidbody>().useGravity = false;
-                    transform.parent.GetChild(i).GetComponent<Rigidbody>().AddExplosionForce(5000.0f, transform.position, 500.0f);
+                    transform.parent.GetChild(i).GetComponent<Rigidbody>().AddExplosionForce(1000.0f, transform.position, 500.0f);
                     if (transform.parent.GetChild(i).GetComponent<SpecialBlock>())
                         transform.parent.GetChild(i).GetComponent<SpecialBlock>().IsAttached = false;
                 }
