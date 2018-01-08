@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 32
-  thrust: 5
+  thrust: 1500
 --- !u!114 &114454738740237210
 MonoBehaviour:
   m_ObjectHideFlags: 1

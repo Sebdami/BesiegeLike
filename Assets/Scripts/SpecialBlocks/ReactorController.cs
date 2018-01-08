@@ -8,28 +8,60 @@ public class ReactorController : SpecialBlock {
 
     void Start () {
         Vector3 vec = Utils.GetClosestCartesianFromVector(-transform.forward);
+
+        keys = new KeyCode[2];
         if (vec == Vector3.down)
-            key = KeyCode.DownArrow;
+        {
+            keys[0] = KeyCode.DownArrow;
+            Vector3 testPos = transform.parent.position;
+            testPos.z = transform.position.z;
+            Vector3 test = testPos - transform.position;
+            if(Vector3.Dot(transform.parent.right, test) > 0)
+            {
+                keys[1] = KeyCode.A;
+            }
+            else if (Vector3.Dot(transform.position, testPos) < 0)
+            {
+                keys[1] = KeyCode.E;
+            }
+        }
         if (vec == Vector3.up)
-            key = KeyCode.UpArrow;
+        {
+            keys[0] = KeyCode.UpArrow;
+            Vector3 testPos = transform.parent.position;
+            testPos.z = transform.position.z;
+            Vector3 test = testPos - transform.position;
+            if (Vector3.Dot(transform.parent.right, test) > 0)
+            {
+                keys[1] = KeyCode.E;
+            }
+            else if (Vector3.Dot(transform.position, testPos) < 0)
+            {
+                keys[1] = KeyCode.A;
+            }
+        }
         if (vec == Vector3.right)
-            key = KeyCode.RightArrow;
+            keys[0] = KeyCode.RightArrow;
         if (vec == Vector3.left)
-            key = KeyCode.LeftArrow;
+            keys[0] = KeyCode.LeftArrow;
         if (vec == Vector3.forward)
-            key = KeyCode.Space;
+            keys[0] = KeyCode.Space;
         if (vec == Vector3.back)
-            key = KeyCode.LeftShift;
+            keys[0] = KeyCode.LeftShift;
+        
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(Input.GetKey(key))
+        foreach(KeyCode key in keys)
         {
-            if(isAttached)
-                transform.parent.GetComponent<Rigidbody>().AddForceAtPosition(-transform.forward * thrust, transform.position, ForceMode.Acceleration);
-            else
-                GetComponent<Rigidbody>().AddForceAtPosition(-transform.forward * thrust, transform.position, ForceMode.Acceleration);
+            if (Input.GetKey(key))
+            {
+                if (isAttached)
+                    transform.parent.GetComponent<Rigidbody>().AddForceAtPosition(-transform.forward * thrust, transform.position, ForceMode.Force);
+                else
+                    GetComponent<Rigidbody>().AddForceAtPosition(-transform.forward * thrust, transform.position, ForceMode.Force);
+            }
         }
 	}
 }

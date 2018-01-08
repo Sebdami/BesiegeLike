@@ -122,6 +122,13 @@ public class GameManager : MonoBehaviour {
             preview = Instantiate(selectedBlock);
             if(preview.GetComponent<Collider>())
                 DestroyImmediate(preview.GetComponent<Collider>());
+            SpecialBlock[] spe = preview.GetComponents<SpecialBlock>();
+            if (spe != null)
+            {
+                foreach (SpecialBlock speBlock in spe)
+                    speBlock.enabled = false;
+            }
+
             MeshRenderer[] renderers = preview.GetComponentsInChildren<MeshRenderer>();
             for(int i = 0; i < renderers.Length; i++)
             {

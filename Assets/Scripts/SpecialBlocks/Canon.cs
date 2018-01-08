@@ -25,7 +25,7 @@ public class Canon : SpecialBlock {
             canShoot = true;
             shootTimer = 0.0f;
         }
-		if(Input.GetKey(key) && canShoot && GameManager.instance.GameState == GameManager.GameStateEnum.Play)
+		if(Input.GetKey(keys[0]) && canShoot && GameManager.instance.GameState == GameManager.GameStateEnum.Play)
         {
             GameObject go = Instantiate(CanonBallPrefab);
             go.transform.position = CanonEnd.position;
