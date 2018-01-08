@@ -311,7 +311,7 @@ MonoBehaviour:
   id: 0
   blockName: Core
   extent: {x: 0, y: 0, z: 0}
-  hp: 3
+  hp: 1
   image: {fileID: 21300000, guid: 55fc5e68c206a1342b2bdc94809e8eb8, type: 3}
   anchorsDirection:
   - anchors:
