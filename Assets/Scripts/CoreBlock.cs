@@ -39,14 +39,10 @@ public class CoreBlock : Block {
                     if (transform.parent.GetChild(i).GetComponent<SpecialBlock>())
                         transform.parent.GetChild(i).GetComponent<SpecialBlock>().IsAttached = false;
                 }
-                
-                Invoke("BackToEdit", 2.0f);
+                Destroy(transform.parent, 5.0f);
+                VehicleSpawner.VehiclesRemaining--;
             }
         }
     }
 
-    void BackToEdit()
-    {
-        GameManager.instance.ExitPlayMode();
-    }
 }

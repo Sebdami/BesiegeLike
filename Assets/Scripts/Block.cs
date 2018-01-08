@@ -144,20 +144,22 @@ public class Block : MonoBehaviour {
     public virtual void DamageBlock()
     {
         hp--;
-        if(hp <= 0)
+        if (hp == 0)
         {
             //transform.SetParent(null);
             if (!GetComponent<Rigidbody>())
-               gameObject.AddComponent<Rigidbody>().useGravity = false;
+                gameObject.AddComponent<Rigidbody>().useGravity = false;
             SpecialBlock[] specialBlockScripts = GetComponents<SpecialBlock>();
-            if(specialBlockScripts != null)
+            if (specialBlockScripts != null)
             {
-                foreach(SpecialBlock special in specialBlockScripts)
+                foreach (SpecialBlock special in specialBlockScripts)
                 {
                     special.IsAttached = false;
                 }
             }
         }
+        else if (hp < 0)
+            gameObject.SetActive(false);
     }
 
     public Transform GetAnchorFromPositionAndNormal(Vector3 position, Vector3 normal)
