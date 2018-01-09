@@ -6,6 +6,8 @@ public class CoreBlock : Block {
 
     bool isPlayer = false;
 
+    bool isActive = true;
+
     public bool IsPlayer
     {
         get
@@ -40,7 +42,9 @@ public class CoreBlock : Block {
                         transform.parent.GetChild(i).GetComponent<SpecialBlock>().IsAttached = false;
                 }
                 Destroy(transform.parent.gameObject, 5.0f);
-                VehicleSpawner.VehiclesRemaining--;
+                if(isActive)
+                    VehicleSpawner.VehiclesRemaining--;
+                isActive = false;
                 this.enabled = false;
             }
         }
