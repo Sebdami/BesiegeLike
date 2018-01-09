@@ -141,7 +141,10 @@ public class GameManager : MonoBehaviour {
     private void Start()
     {
         if (!instance)
+        {
             instance = this;
+            DontDestroyOnLoad(this);
+        }
         else
             Destroy(gameObject);
         GameState = GameStateEnum.Editor;
