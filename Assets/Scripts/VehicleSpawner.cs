@@ -34,10 +34,10 @@ public class VehicleSpawner : MonoBehaviour {
 
 
     void Start () {
-        if (GameManager.instance.BlocksInitialised)
+        if (BlockDatabase.instance.BlocksInitialised)
             SpawnVehicles();
         else
-            GameManager.OnBlocksInitialised += SpawnVehicles;
+            BlockDatabase.OnBlocksInitialised += SpawnVehicles;
         GameManager.OnGameStateChange += GameStateChange;
 	}
 
@@ -71,6 +71,6 @@ public class VehicleSpawner : MonoBehaviour {
     private void OnDestroy()
     {
         GameManager.OnGameStateChange -= GameStateChange;
-        GameManager.OnBlocksInitialised -= SpawnVehicles;
+        BlockDatabase.OnBlocksInitialised -= SpawnVehicles;
     }
 }

@@ -61,9 +61,9 @@ public class UIManager : MonoBehaviour {
     private void Start()
     {
         GameManager.OnGameStateChange += GameStateChanged;
-        if (GameManager.instance.BlocksInitialised) // if the blocks already have been initialized, create the buttons
-            CreateBlocksButtons(); 
-        GameManager.OnBlocksInitialised += CreateBlocksButtons; //Add this event anyway in case we call Load Blocks later in game
+        if (BlockDatabase.instance.BlocksInitialised) // if the blocks already have been initialized, create the buttons
+            CreateBlocksButtons();
+        BlockDatabase.OnBlocksInitialised += CreateBlocksButtons; //Add this event anyway in case we call Load Blocks later in game
 
         //CreateBlocksButtons(); //Temporary
     }
@@ -99,7 +99,7 @@ public class UIManager : MonoBehaviour {
     private void OnDestroy()
     {
         GameManager.OnGameStateChange -= GameStateChanged;
-        GameManager.OnBlocksInitialised -= CreateBlocksButtons;
+        BlockDatabase.OnBlocksInitialised -= CreateBlocksButtons;
     }
 
 
@@ -212,13 +212,13 @@ public class UIManager : MonoBehaviour {
             DestroyImmediate(blocksButtons.transform.GetChild(0).gameObject);
         }
 
-        for(int i = 0; i < GameManager.instance.Blocks.Length; i++)
+        for(int i = 0; i < BlockDatabase.instance.Blocks.Length; i++)
         {
             //Ignore Core block
-            if (GameManager.instance.Blocks[i].GetComponent<CoreBlock>())
+            if (BlockDatabase.instance.Blocks[i].GetComponent<CoreBlock>())
                 continue;
             Button blockButton = Instantiate(blockButtonPrefab, blocksButtons.transform).GetComponent<Button>();
-            Block block = GameManager.instance.Blocks[i].GetComponent<Block>();
+            Block block = BlockDatabase.instance.Blocks[i].GetComponent<Block>();
             blockButton.onClick.RemoveAllListeners();
             blockButton.onClick.AddListener(() => GameManager.instance.SetSelectedBlockFromID(block.Id));
             blockButton.GetComponentInChildren<Text>().text = block.BlockName;

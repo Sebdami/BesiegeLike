@@ -21,12 +21,8 @@ public class GameManager : MonoBehaviour {
     }
     public static GameManager instance;
     public delegate void GameStateChange(GameStateEnum state);
-    public delegate void Initialisation();
-
-    public static Initialisation OnBlocksInitialised;
     public static GameStateChange OnGameStateChange;
-    [SerializeField]
-    public GameObject[] Blocks;
+
 
     [SerializeField]
     GameObject selectedBlock;
@@ -37,7 +33,6 @@ public class GameManager : MonoBehaviour {
 
     bool disableBuildingControls = false;
     bool disableCameraControls = false;
-    bool blocksInitialised = false;
     GameStateEnum gameState = GameStateEnum.Editor;
 
     public GameObject Vehicle
@@ -94,19 +89,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public bool BlocksInitialised
-    {
-        get
-        {
-            return blocksInitialised;
-        }
-
-        set
-        {
-            blocksInitialised = value;
-        }
-    }
-
     public GameObject SelectedBlock
     {
         get
@@ -146,16 +128,24 @@ public class GameManager : MonoBehaviour {
             DontDestroyOnLoad(this);
         }
         else
+        {
             Destroy(gameObject);
+            return;
+        }  
         GameState = GameStateEnum.Editor;
         Time.timeScale = 0.0f;
-        //SelectedBlock = Blocks[1];
-        StartCoroutine(LoadBlocks());
+        if (BlockDatabase.instance.BlocksInitialised)
+            InitAfterBlockLoad();
+        else
+            BlockDatabase.OnBlocksInitialised += InitAfterBlockLoad;
+
     }
 
     void InitAfterBlockLoad()
     {
+        GameManager.instance.SelectedBlock = BlockDatabase.instance.GetBlockPrefabById(1);
         InitEmptyVehicleWithCore();
+        BlockDatabase.OnBlocksInitialised -= InitAfterBlockLoad;
     }
 
     public void InitEmptyVehicleWithCore()
@@ -169,7 +159,7 @@ public class GameManager : MonoBehaviour {
         rb.drag = 0.5f;
         rb.angularDrag = 2.0f;
 
-        AddBlock(vehicle, Blocks[0], vehicle.transform.position, vehicle.transform.rotation, true);
+        AddBlock(vehicle, BlockDatabase.instance.Blocks[0], vehicle.transform.position, vehicle.transform.rotation, true);
 
     }
 
@@ -188,7 +178,7 @@ public class GameManager : MonoBehaviour {
     private void Update()
     {
         
-        if (disableBuildingControls || !blocksInitialised)
+        if (disableBuildingControls || !BlockDatabase.instance.BlocksInitialised)
         {
             if (preview && preview.activeSelf)
                 preview.SetActive(false);
@@ -279,32 +269,16 @@ public class GameManager : MonoBehaviour {
 
     public void SetSelectedBlockFromIndex(int index)
     {
-        if (index < 0 || index >= Blocks.Length)
+        if (index < 0 || index >= BlockDatabase.instance.Blocks.Length)
             return;
-        SelectedBlock = Blocks[index];
+        SelectedBlock = BlockDatabase.instance.Blocks[index];
     }
 
     public void SetSelectedBlockFromID(int id)
     {
-        GameObject newBlock = GetBlockPrefabById(id);
+        GameObject newBlock = BlockDatabase.instance.GetBlockPrefabById(id);
         if (newBlock)
             SelectedBlock = newBlock;
-    }
-
-        public Block GetBlockById(int id)
-    {
-        Block b = Array.Find<GameObject>(Blocks, x => x.GetComponent<Block>().Id == id).GetComponent<Block>();
-        if (b)
-            return b;
-        return null;
-    }
-
-    public GameObject GetBlockPrefabById(int id)
-    {
-        GameObject go = Array.Find<GameObject>(Blocks, x => x.GetComponent<Block>().Id == id);
-        if (go)
-            return go;
-        return null;
     }
 
     public void EnterPlayMode()
@@ -397,7 +371,7 @@ public class GameManager : MonoBehaviour {
             string[] rotCoords = sr.ReadLine().Split(',');
             Vector3 pos = new Vector3(float.Parse(posCoords[0]), float.Parse(posCoords[1]), float.Parse(posCoords[2]));
             Quaternion rot = new Quaternion(float.Parse(rotCoords[0]), float.Parse(rotCoords[1]), float.Parse(rotCoords[2]), float.Parse(rotCoords[3]));
-            AddBlock(vehicle, Blocks[id], pos, rot, isPlayer); // Do better by adding a GetBlockTypeById function somewhere
+            AddBlock(vehicle, BlockDatabase.instance.GetBlockPrefabById(id), pos, rot, isPlayer);
         }
         sr.Close();
         return true;
@@ -426,55 +400,10 @@ public class GameManager : MonoBehaviour {
             string[] rotCoords = sr.ReadLine().Split(',');
             Vector3 pos = new Vector3(float.Parse(posCoords[0]), float.Parse(posCoords[1]), float.Parse(posCoords[2]));
             Quaternion rot = new Quaternion(float.Parse(rotCoords[0]), float.Parse(rotCoords[1]), float.Parse(rotCoords[2]), float.Parse(rotCoords[3]));
-            AddBlock(vehicleToSpawn, instance.Blocks[id], pos, rot, false);
+            AddBlock(vehicleToSpawn, BlockDatabase.instance.GetBlockPrefabById(id), pos, rot, false);
         }
         sr.Close();
         return vehicleToSpawn;
-    }
-
-    int CompareBlockById(GameObject go1, GameObject go2)
-    {
-        int id1 = go1.GetComponent<Block>().Id;
-        int id2 = go2.GetComponent<Block>().Id;
-        if (id1 > id2)
-            return 1;
-        if (id1 < id2)
-            return -1;
-        return 0;
-    }
-
-    public IEnumerator LoadBlocks()
-    {
-        string[] blockFileNames = Directory.GetFiles(Directories.BLOCK_BUNDLES_DIRECTORY, "*.manifest");
-        List<GameObject> blockList = new List<GameObject>();   
-        foreach(string fileName in blockFileNames)
-        {
-            string bundleName = fileName.Replace(".manifest", "");
-            string uri = "file:///" + Application.dataPath + "/../" + bundleName;
-            //string assetName = fileName.Remove(0, fileName.LastIndexOf('/'));
-            UnityWebRequest request = UnityWebRequest.GetAssetBundle(uri, 0);
-            yield return request.Send();
-            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(request);
-            GameObject[] gos = bundle.LoadAllAssets<GameObject>();
-            foreach(GameObject go in gos)
-            {
-                if(go.GetComponent<Block>())
-                {
-                    if(blockList.Find( x => x.GetComponent<Block>().Id == go.GetComponent<Block>().Id))
-                    {
-                        continue;
-                    }
-                    blockList.Add(go);
-                }
-            }
-        }
-        blockList.Sort(CompareBlockById);
-        Blocks = blockList.ToArray();
-        SelectedBlock = Blocks[1];
-        if (OnBlocksInitialised != null)
-            OnBlocksInitialised();
-        blocksInitialised = true;
-        InitAfterBlockLoad();
     }
 
 }
