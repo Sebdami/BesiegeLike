@@ -55,7 +55,7 @@ public class VehicleSpawner : MonoBehaviour {
                 Destroy(go);
         foreach (Transform tr in spawnPositions)
         {
-            spawnedVehicles.Add(GameManager.LoadVehicleFromString(vehicleToSpawnFile.text));
+            spawnedVehicles.Add(VehicleBuilder.LoadVehicleFromString(vehicleToSpawnFile.text));
             GameObject veh = spawnedVehicles[spawnedVehicles.Count - 1];
             veh.transform.parent = tr;
             veh.transform.localPosition = Vector3.zero;
