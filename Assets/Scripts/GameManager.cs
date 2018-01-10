@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour {
         rb.drag = 0.5f;
         rb.angularDrag = 2.0f;
 
-        AddBlock(vehicle, BlockDatabase.instance.Blocks[0], vehicle.transform.position, vehicle.transform.rotation, true);
+        VehicleBuilder.AddBlock(vehicle, BlockDatabase.instance.GetBlockPrefabById(0), vehicle.transform.position, vehicle.transform.rotation, true);
 
     }
 
@@ -242,23 +242,6 @@ public class GameManager : MonoBehaviour {
         //fj.connectedBody = vehicle.GetComponent<Rigidbody>();
         //fj.autoConfigureConnectedAnchor = false;
 
-    }
-
-    public static void AddBlock(GameObject vehicleToAttachTo, GameObject block, Vector3 position, Quaternion rotation, bool isPlayer = false)
-    {
-
-        GameObject go = Instantiate(block, vehicleToAttachTo.transform);
-        go.transform.position = position;
-        go.transform.rotation = rotation;
-
-        if (isPlayer && go.GetComponent<CoreBlock>() != null)
-            go.GetComponent<CoreBlock>().IsPlayer = true;
-
-        //Rigidbody rb = go.AddComponent<Rigidbody>();
-        //rb.useGravity = false;
-        //FixedJoint fj = go.AddComponent<FixedJoint>();
-        //fj.connectedBody = vehicle.GetComponent<Rigidbody>();
-        //fj.autoConfigureConnectedAnchor = false;
     }
 
     void DeleteBlock(Block block)
@@ -358,52 +341,12 @@ public class GameManager : MonoBehaviour {
         {
             return false;
         }
-
+        string data = sr.ReadToEnd();
+        sr.Close();
         InitEmptyVehicle();
-
-        int nbBlocks = int.Parse(sr.ReadLine());
-
-        for(int i = 0; i < nbBlocks; i++)
-        {
-            int id = int.Parse(sr.ReadLine());
-
-            string[] posCoords = sr.ReadLine().Split(',');
-            string[] rotCoords = sr.ReadLine().Split(',');
-            Vector3 pos = new Vector3(float.Parse(posCoords[0]), float.Parse(posCoords[1]), float.Parse(posCoords[2]));
-            Quaternion rot = new Quaternion(float.Parse(rotCoords[0]), float.Parse(rotCoords[1]), float.Parse(rotCoords[2]), float.Parse(rotCoords[3]));
-            AddBlock(vehicle, BlockDatabase.instance.GetBlockPrefabById(id), pos, rot, isPlayer);
-        }
-        sr.Close();
+        VehicleBuilder.LoadVehicleFromString(data, vehicle);
+        
         return true;
-    }
-
-    public static GameObject LoadVehicleFromString(string data)
-    {
-        StringReader sr = new StringReader(data);
-        if (sr == null)
-        {
-            return null;
-        }
-        int nbBlocks = int.Parse(sr.ReadLine());
-
-        GameObject vehicleToSpawn = new GameObject("Vehicle", typeof(Rigidbody));
-        Rigidbody rb = vehicleToSpawn.GetComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.drag = 0.5f;
-        rb.angularDrag = 2.0f;
-
-        for (int i = 0; i < nbBlocks; i++)
-        {
-            int id = int.Parse(sr.ReadLine());
-
-            string[] posCoords = sr.ReadLine().Split(',');
-            string[] rotCoords = sr.ReadLine().Split(',');
-            Vector3 pos = new Vector3(float.Parse(posCoords[0]), float.Parse(posCoords[1]), float.Parse(posCoords[2]));
-            Quaternion rot = new Quaternion(float.Parse(rotCoords[0]), float.Parse(rotCoords[1]), float.Parse(rotCoords[2]), float.Parse(rotCoords[3]));
-            AddBlock(vehicleToSpawn, BlockDatabase.instance.GetBlockPrefabById(id), pos, rot, false);
-        }
-        sr.Close();
-        return vehicleToSpawn;
     }
 
 }
