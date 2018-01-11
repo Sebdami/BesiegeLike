@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
 
 
     [SerializeField]
+    TextAsset baseVehicle;
+
     GameObject selectedBlock;
 
     GameObject vehicle;
@@ -146,6 +148,14 @@ public class GameManager : MonoBehaviour {
     {
         GameManager.instance.SelectedBlock = BlockDatabase.instance.GetBlockPrefabById(1);
         InitEmptyVehicleWithCore();
+        if (!Directory.Exists(Directories.VEHICLE_SAVE_DIRECTORY))
+        {
+            Directory.CreateDirectory(Directories.VEHICLE_SAVE_DIRECTORY);
+        }
+        if(Directory.GetFiles(Directories.VEHICLE_SAVE_DIRECTORY).Length == 0)
+        {
+            VehicleBuilder.LoadVehicleFromString(baseVehicle.text, vehicle);
+        }
         BlockDatabase.OnBlocksInitialised -= InitAfterBlockLoad;
     }
 

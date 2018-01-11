@@ -202,6 +202,11 @@ public class UIManager : MonoBehaviour {
         {
             DestroyImmediate(vehicleButtons.GetChild(0).gameObject);
         }
+        if(!Directory.Exists(Directories.VEHICLE_SAVE_DIRECTORY))
+        {
+            Directory.CreateDirectory(Directories.VEHICLE_SAVE_DIRECTORY);
+        }
+
         string[] vehicleFiles = Directory.GetFiles(Directories.VEHICLE_SAVE_DIRECTORY);
         foreach(string str in vehicleFiles)
         {
