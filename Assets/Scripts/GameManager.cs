@@ -236,13 +236,6 @@ public class GameManager : MonoBehaviour {
 
         if (isPlayer && go.GetComponent<CoreBlock>() != null)
             go.GetComponent<CoreBlock>().IsPlayer = true;
-
-        //Rigidbody rb = go.AddComponent<Rigidbody>();
-        //rb.useGravity = false;
-        //FixedJoint fj = go.AddComponent<FixedJoint>();
-        //fj.connectedBody = vehicle.GetComponent<Rigidbody>();
-        //fj.autoConfigureConnectedAnchor = false;
-
     }
 
     void DeleteBlock(Block block)
@@ -291,12 +284,6 @@ public class GameManager : MonoBehaviour {
 
     public void ExitPlayMode()
     {
-        //Destroy(vehicle.GetComponent<Rigidbody>());
-        //Rigidbody rb = vehicle.GetComponent<Rigidbody>();
-        //rb.velocity = Vector3.zero;
-        //rb.angularVelocity = Vector3.zero;
-        //vehicle.transform.position = Vector3.zero;
-        //vehicle.transform.rotation = Quaternion.identity;
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
         foreach(GameObject go in projectiles)
             Destroy(go);
@@ -304,7 +291,7 @@ public class GameManager : MonoBehaviour {
         this.enabled = true;
         Time.timeScale = 0.0f;
         GameState = GameStateEnum.Editor;
-        LoadVehicle(Directories.CACHE_DIRECTORY + "CachedVehicle.tmp", true);
+        LoadVehicle(Directories.CACHE_DIRECTORY + "CachedVehicle.tmp");
         File.Delete(Directories.CACHE_DIRECTORY + "CachedVehicle.tmp");
     }
 
@@ -323,31 +310,21 @@ public class GameManager : MonoBehaviour {
         {
             return false;
         }
+        string serializedVehicle = VehicleBuilder.SerializeVehicle(vehicle);
+        if (serializedVehicle == string.Empty)
+            return false;
+        sw.WriteLine(serializedVehicle);
         sw.WriteLine(vehicle.transform.childCount);
-        for(int i = 0; i < vehicle.transform.childCount; i++)
-        {
-            Transform child = vehicle.transform.GetChild(i);
-            sw.WriteLine(child.GetComponent<Block>().Id);
-            sw.WriteLine(child.position.x + "," + child.position.y + "," + child.position.z);
-            sw.WriteLine(child.rotation.x + "," + child.rotation.y + "," + child.rotation.z + "," + child.rotation.w);
-        }
         sw.Close();
         return true;
     }
 
-    public bool LoadVehicle(string filePath, bool isPlayer) // isPlayer is useless here since Load Vehicle is used only for the player for now
+    public bool LoadVehicle(string filePath)
     {
-        StreamReader sr = new StreamReader(filePath);
-        if(sr == null)
-        {
+        Destroy(vehicle);
+        vehicle = VehicleBuilder.LoadVehicleFromFile(filePath, null, true);
+        if (vehicle == null)
             return false;
-        }
-        string data = sr.ReadToEnd();
-        sr.Close();
-        InitEmptyVehicle();
-        VehicleBuilder.LoadVehicleFromString(data, vehicle);
-        
         return true;
     }
-
 }

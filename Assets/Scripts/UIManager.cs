@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     Button saveButton;
 
+    [SerializeField]
+    Button openSavePanelButton;
+
     [Space(10)]
     [Header("Load")]
     [SerializeField]
@@ -110,7 +113,7 @@ public class UIManager : MonoBehaviour {
         playButton.gameObject.SetActive(false);
         resetButton.gameObject.SetActive(false);
         vehicleButtons.gameObject.SetActive(false);
-        saveButton.gameObject.SetActive(false);
+        openSavePanelButton.gameObject.SetActive(false);
         loadButton.gameObject.SetActive(false);
         blocksButtonsScrollView.SetActive(false);
     }
@@ -122,7 +125,7 @@ public class UIManager : MonoBehaviour {
         playButton.gameObject.SetActive(true);
         resetButton.gameObject.SetActive(true);
         vehicleButtons.gameObject.SetActive(true);
-        saveButton.gameObject.SetActive(true);
+        openSavePanelButton.gameObject.SetActive(true);
         loadButton.gameObject.SetActive(true);
         blocksButtonsScrollView.SetActive(true);
     }
@@ -198,7 +201,7 @@ public class UIManager : MonoBehaviour {
             vehicleName = vehicleName.Replace(".sav", "");
             Button vehicleButton = Instantiate(vehicleLoadButtonPrefab, vehicleButtons).GetComponent<Button>();
             vehicleButton.onClick.RemoveAllListeners();
-            vehicleButton.onClick.AddListener(() => GameManager.instance.LoadVehicle(str, true));
+            vehicleButton.onClick.AddListener(() => GameManager.instance.LoadVehicle(str));
             vehicleButton.onClick.AddListener(() => CloseLoadPanel());
             vehicleButton.GetComponentInChildren<Text>().text = vehicleName;
         }
