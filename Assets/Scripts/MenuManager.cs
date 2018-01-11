@@ -65,7 +65,6 @@ public class MenuManager : MonoBehaviour {
         foreach (string fileName in levelFileNames)
         {
             string bundleName = fileName.Replace(".manifest", "");
-            string uri = "file:///" + Application.dataPath + "/../" + bundleName;
             string levelName = bundleName.Replace(Directories.LEVEL_BUNDLES_DIRECTORY, "");
             Button levelButton = Instantiate(levelButtonPrefab, levelButtons).GetComponent<Button>();
             levelButton.onClick.RemoveAllListeners();

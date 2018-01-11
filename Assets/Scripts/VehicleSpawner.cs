@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VehicleSpawner : MonoBehaviour {
-    static int vehiclesRemaining = 0;
+    public static int vehiclesRemaining = 0;
 
     //[SerializeField]
     //GameObject vehicleToSpawn;
@@ -31,8 +31,6 @@ public class VehicleSpawner : MonoBehaviour {
         }
     }
 
-
-
     void Start () {
         if (BlockDatabase.instance.BlocksInitialised)
             SpawnVehicles();
@@ -49,7 +47,7 @@ public class VehicleSpawner : MonoBehaviour {
 
     void SpawnVehicles()
     {
-        vehiclesRemaining = spawnPositions.Length;
+        vehiclesRemaining += spawnPositions.Length;
         if (spawnedVehicles.Count > 0)
             foreach (GameObject go in spawnedVehicles)
                 Destroy(go);

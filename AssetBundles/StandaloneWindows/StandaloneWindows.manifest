@@ -1,25 +1,25 @@
 ManifestFileVersion: 0
-CRC: 3637926696
+CRC: 1698182085
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: blocks/basicblock
       Dependencies: {}
     Info_1:
-      Name: blocks/reactorblock
-      Dependencies: {}
-    Info_2:
       Name: blocks/canonblock
       Dependencies: {}
-    Info_3:
-      Name: blocks/reactorblocktest
-      Dependencies: {}
-    Info_4:
+    Info_2:
       Name: blocks/coreblock
       Dependencies: {}
-    Info_5:
+    Info_3:
       Name: blocks/doubleblock
       Dependencies: {}
-    Info_6:
+    Info_4:
+      Name: blocks/reactorblock
+      Dependencies: {}
+    Info_5:
       Name: levels/level1
+      Dependencies: {}
+    Info_6:
+      Name: levels/level2
       Dependencies: {}

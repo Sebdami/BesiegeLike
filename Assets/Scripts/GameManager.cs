@@ -298,7 +298,7 @@ public class GameManager : MonoBehaviour {
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
         foreach(GameObject go in projectiles)
             Destroy(go);
-
+        VehicleSpawner.vehiclesRemaining = 0;
         //this.enabled = true;
         Time.timeScale = 0.0f;
         GameState = GameStateEnum.Editor;
