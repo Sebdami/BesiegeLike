@@ -51,5 +51,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae0257cf70ea1e40bc8fe79009adf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedBlock: {fileID: 1222486237460138, guid: 03efa34a07e7cb34d9dfee525718d0ce,
-    type: 2}
+  selectedBlock: {fileID: 0}

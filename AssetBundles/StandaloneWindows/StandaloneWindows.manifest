@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 59352762
+CRC: 239202876
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -19,4 +19,7 @@ AssetBundleManifest:
       Dependencies: {}
     Info_5:
       Name: blocks/doubleblock
+      Dependencies: {}
+    Info_6:
+      Name: levels/level1
       Dependencies: {}

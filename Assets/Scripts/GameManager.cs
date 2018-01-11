@@ -11,6 +11,7 @@ public static class Directories
     public static string VEHICLE_SAVE_DIRECTORY { get { return "SavedVehicles/"; } }
     public static string CACHE_DIRECTORY { get { return "Cache/"; } }
     public static string BLOCK_BUNDLES_DIRECTORY { get { return "AssetBundles/StandaloneWindows/blocks/"; } }
+    public static string LEVEL_BUNDLES_DIRECTORY { get { return "AssetBundles/StandaloneWindows/levels/"; } }
 }
 
 public class GameManager : MonoBehaviour {
