@@ -1,0 +1,46 @@
+ManifestFileVersion: 0
+CRC: 1687627705
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a33db171225c7a67694ef61bda4d8c16
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8efc6e9fb507851bb90cf95536398dad
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4a0160b62abd94b44a3a823672fe1a8c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0ca370c8b4c503f4bbd6c41cacef9a6f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3ccfe1dd09899f34d9630834b1032d44, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/Blocks/CanonBlock.prefab
+Dependencies: []

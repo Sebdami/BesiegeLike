@@ -1,0 +1,40 @@
+ManifestFileVersion: 0
+CRC: 2827862948
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7487197657763b0a82ba30ab7ec5d212
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2cce7093fd466f1bbea19bdc03e2084f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 614d67cb6e67ecb44ada2d2e695353b5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3ccfe1dd09899f34d9630834b1032d44, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/Blocks/ReactorBlock.prefab
+Dependencies: []

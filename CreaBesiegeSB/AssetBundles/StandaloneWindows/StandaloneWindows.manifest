@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 2475714200
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: blocks/basicblock
+      Dependencies: {}
+    Info_1:
+      Name: blocks/canonblock
+      Dependencies: {}
+    Info_2:
+      Name: blocks/coreblock
+      Dependencies: {}
+    Info_3:
+      Name: blocks/doubleblock
+      Dependencies: {}
+    Info_4:
+      Name: blocks/reactorblock
+      Dependencies: {}
+    Info_5:
+      Name: levels/level1
+      Dependencies:
+        Dependency_0: blocks/bigcanonblock
+    Info_6:
+      Name: levels/level2
+      Dependencies: {}
+    Info_7:
+      Name: blocks/bigcanonblock
+      Dependencies: {}
