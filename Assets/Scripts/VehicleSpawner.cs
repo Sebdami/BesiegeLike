@@ -26,7 +26,7 @@ public class VehicleSpawner : MonoBehaviour {
             vehiclesRemaining = value;
             if(vehiclesRemaining <= 0 && GameManager.instance.GameState == GameManager.GameStateEnum.Play)
             {
-                GameManager.instance.Invoke("ExitPlayMode", 2.0f);
+                GameManager.instance.WinLevel();
             }
         }
     }

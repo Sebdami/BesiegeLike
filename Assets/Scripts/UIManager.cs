@@ -56,6 +56,12 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     GameObject blocksButtons;
 
+    [SerializeField]
+    GameObject WinText;
+
+    [SerializeField]
+    GameObject LoseText;
+
     bool needToReenableControls = false;
 
     float controlsTimer = 0.0f;
@@ -64,11 +70,11 @@ public class UIManager : MonoBehaviour {
     private void Start()
     {
         GameManager.OnGameStateChange += GameStateChanged;
+        GameManager.OnWin += OnWin;
+        GameManager.OnLose += OnLose;
         if (BlockDatabase.instance.BlocksInitialised) // if the blocks already have been initialized, create the buttons
             CreateBlocksButtons();
         BlockDatabase.OnBlocksInitialised += CreateBlocksButtons; //Add this event anyway in case we call Load Blocks later in game
-
-        //CreateBlocksButtons(); //Temporary
     }
 
     void GameStateChanged(GameManager.GameStateEnum state)
@@ -97,16 +103,23 @@ public class UIManager : MonoBehaviour {
                 controlsTimer = 0.0f;
             }
         }
+    }
 
-        if(GameManager.instance.GameState == GameManager.GameStateEnum.Editor && Input.GetKeyDown(KeyCode.Escape))
-        {
-            ToggleExitToMenuPanel();
-        }
+    void OnWin()
+    {
+        WinText.SetActive(true);
+    }
+
+    void OnLose()
+    {
+        LoseText.SetActive(true);
     }
 
     private void OnDestroy()
     {
         GameManager.OnGameStateChange -= GameStateChanged;
+        GameManager.OnWin -= OnWin;
+        GameManager.OnLose -= OnLose;
         BlockDatabase.OnBlocksInitialised -= CreateBlocksButtons;
     }
 
@@ -133,6 +146,9 @@ public class UIManager : MonoBehaviour {
         openSavePanelButton.gameObject.SetActive(true);
         loadButton.gameObject.SetActive(true);
         blocksButtonsScrollView.SetActive(true);
+
+        WinText.SetActive(false);
+        LoseText.SetActive(false);
     }
 
     public void OpenSavePanel()
@@ -189,11 +205,6 @@ public class UIManager : MonoBehaviour {
         GameManager.instance.DisableCameraControls = false;
         needToReenableControls = true;
         LoadPanel.SetActive(false);
-    }
-
-    public void ToggleExitToMenuPanel()
-    {
-
     }
 
     public void UpdateLoadPanel()

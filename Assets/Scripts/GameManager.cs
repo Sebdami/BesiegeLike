@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour {
     public delegate void GameStateChange(GameStateEnum state);
     public static GameStateChange OnGameStateChange;
 
+    public delegate void LevelEnd();
+    public static LevelEnd OnWin;
+    public static LevelEnd OnLose;
+
 
     [SerializeField]
     TextAsset baseVehicle;
@@ -157,6 +161,20 @@ public class GameManager : MonoBehaviour {
             VehicleBuilder.LoadVehicleFromString(baseVehicle.text, vehicle);
         }
         BlockDatabase.OnBlocksInitialised -= InitAfterBlockLoad;
+    }
+    
+    public void WinLevel()
+    {
+        if (OnWin != null)
+            OnWin();
+        Invoke("ExitPlayMode", 2.0f);
+    }
+
+    public void LoseLevel()
+    {
+        if (OnLose != null)
+            OnLose();
+        Invoke("ExitPlayMode", 2.0f);
     }
 
     public void InitEmptyVehicleWithCore()

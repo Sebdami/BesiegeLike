@@ -27,12 +27,15 @@ public class CoreBlock : Block {
         if(hp <= 0)
         {
             if (isPlayer) // TODO : Check if player lost or update objective
+            {
                 GameManager.instance.ExitPlayMode();
+                GameManager.instance.LoseLevel();
+            }
             else
             {
-                if(!GetComponent<Rigidbody>())
+                if (!GetComponent<Rigidbody>())
                     gameObject.AddComponent<Rigidbody>().useGravity = false;
-                
+
                 for (int i = 0; i < transform.parent.childCount; i++)
                 {
                     if (!transform.parent.GetChild(i).GetComponent<Rigidbody>())
@@ -42,7 +45,7 @@ public class CoreBlock : Block {
                         transform.parent.GetChild(i).GetComponent<SpecialBlock>().IsAttached = false;
                 }
                 Destroy(transform.parent.gameObject, 5.0f);
-                if(isActive)
+                if (isActive)
                     VehicleSpawner.VehiclesRemaining--;
                 isActive = false;
                 this.enabled = false;
