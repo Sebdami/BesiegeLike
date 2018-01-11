@@ -61,24 +61,35 @@ public class BlockDatabase : MonoBehaviour {
         foreach (string fileName in blockFileNames)
         {
             string bundleName = fileName.Replace(".manifest", "");
-            string uri = "file:///" + Application.dataPath + "/../" + bundleName;
-            //string assetName = fileName.Remove(0, fileName.LastIndexOf('/'));
-            UnityWebRequest request = UnityWebRequest.GetAssetBundle(uri, 0);
-            yield return request.Send();
             AssetBundle bundle = null;
-            try
+            if (AssetBundleManager.GetAssetBundle(bundleName))
             {
-                bundle = DownloadHandlerAssetBundle.GetContent(request);
+                bundle = AssetBundleManager.GetAssetBundle(bundleName);
             }
-            catch(Exception e)
+            else
             {
-                Debug.LogError("Block loading failed " + e.Message);
+                string uri = "file:///" + Application.dataPath + "/../" + bundleName;
+                //string assetName = fileName.Remove(0, fileName.LastIndexOf('/'));
+                UnityWebRequest request = UnityWebRequest.GetAssetBundle(uri, 0);
+                yield return request.Send();
+              
+                try
+                {
+                    bundle = DownloadHandlerAssetBundle.GetContent(request);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Block loading failed " + e.Message);
+                }
+                if (bundle == null)
+                {
+                    Debug.LogError("Failed loading blocks");
+                    yield return null;
+                }
+                AssetBundleManager.AddAssetBundle(bundleName, bundle);
             }
-            if (bundle == null)
-            {
-                Debug.LogError("Failed loading blocks");
-                yield return null;
-            }
+            
+            
             GameObject[] gos = bundle.LoadAllAssets<GameObject>();
             foreach (GameObject go in gos)
             {

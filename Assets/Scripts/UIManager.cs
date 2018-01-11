@@ -97,6 +97,11 @@ public class UIManager : MonoBehaviour {
                 controlsTimer = 0.0f;
             }
         }
+
+        if(GameManager.instance.GameState == GameManager.GameStateEnum.Editor && Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleExitToMenuPanel();
+        }
     }
 
     private void OnDestroy()
@@ -184,6 +189,11 @@ public class UIManager : MonoBehaviour {
         GameManager.instance.DisableCameraControls = false;
         needToReenableControls = true;
         LoadPanel.SetActive(false);
+    }
+
+    public void ToggleExitToMenuPanel()
+    {
+
     }
 
     public void UpdateLoadPanel()

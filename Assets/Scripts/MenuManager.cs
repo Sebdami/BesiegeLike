@@ -25,20 +25,33 @@ public class MenuManager : MonoBehaviour {
 
     public IEnumerator LoadLevelBundle(string bundleName)
     {
-        string uri = "file:///" + Application.dataPath + "/../" + bundleName;
-        UnityWebRequest request = UnityWebRequest.GetAssetBundle(uri, 0);
-        yield return request.Send();
         AssetBundle bundle = null;
-        try
-        {
-            bundle = DownloadHandlerAssetBundle.GetContent(request);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Level loading failed " + e.Message);
-        }
 
-        SceneManager.LoadScene(bundle.GetAllScenePaths()[0]);
+        if (AssetBundleManager.GetAssetBundle(bundleName))
+        {
+            bundle = AssetBundleManager.GetAssetBundle(bundleName);
+        }
+        else
+        {
+            string uri = "file:///" + Application.dataPath + "/../" + bundleName;
+            UnityWebRequest request = UnityWebRequest.GetAssetBundle(uri, 0);
+            yield return request.Send();
+
+            try
+            {
+                bundle = DownloadHandlerAssetBundle.GetContent(request);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Level loading failed " + e.Message);
+            }
+            AssetBundleManager.AddAssetBundle(bundleName, bundle);
+        }
+        
+        string LevelName = bundle.GetAllScenePaths()[0];
+
+        SceneManager.LoadScene(LevelName);
+        yield return null;
     }
 
     public void UpdateLevelPanel()

@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour {
         if (!instance)
         {
             instance = this;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
         }
         else
         {
@@ -178,14 +178,25 @@ public class GameManager : MonoBehaviour {
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameState == GameStateEnum.Play)
+            {
+                ExitPlayMode();
+            }
+            else
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            }
+        }
+
         if (disableBuildingControls || !BlockDatabase.instance.BlocksInitialised)
         {
             if (preview && preview.activeSelf)
                 preview.SetActive(false);
             return;
         }
-            
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Block")) && hit.transform == vehicle.transform)
@@ -279,7 +290,7 @@ public class GameManager : MonoBehaviour {
         
         Time.timeScale = 1.0f;
         GameState = GameStateEnum.Play;
-        this.enabled = false;
+        //this.enabled = false;
     }
 
     public void ExitPlayMode()
@@ -288,7 +299,7 @@ public class GameManager : MonoBehaviour {
         foreach(GameObject go in projectiles)
             Destroy(go);
 
-        this.enabled = true;
+        //this.enabled = true;
         Time.timeScale = 0.0f;
         GameState = GameStateEnum.Editor;
         LoadVehicle(Directories.CACHE_DIRECTORY + "CachedVehicle.tmp");
