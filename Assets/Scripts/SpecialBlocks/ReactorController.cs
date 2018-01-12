@@ -6,6 +6,14 @@ public class ReactorController : SpecialBlock {
     [SerializeField]
     float thrust = 5.0f;
 
+    [SerializeField]
+    LensFlare flare;
+
+    [SerializeField]
+    float maxFlareIntensity = 0.3f;
+
+    float flareIntensity;
+
     void Start () {
         Vector3 vec = Utils.GetClosestCartesianFromVector(-transform.forward);
 
@@ -70,11 +78,16 @@ public class ReactorController : SpecialBlock {
         {
             if (Input.GetKey(key))
             {
+                flareIntensity += Time.deltaTime * 2.0f;
                 if (isAttached)
                     transform.parent.GetComponent<Rigidbody>().AddForceAtPosition(-transform.forward * thrust, transform.position, ForceMode.Force);
                 else
                     GetComponent<Rigidbody>().AddForceAtPosition(-transform.forward * thrust, transform.position, ForceMode.Force);
             }
         }
-	}
+        flareIntensity -= Time.deltaTime;
+        flareIntensity = Mathf.Clamp(flareIntensity, 0.0f, maxFlareIntensity);
+        if (flare)
+            flare.brightness = flareIntensity;
+    }
 }
