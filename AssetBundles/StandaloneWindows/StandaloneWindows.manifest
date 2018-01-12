@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1320416117
+CRC: 2864210970
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -19,4 +19,10 @@ AssetBundleManifest:
       Dependencies: {}
     Info_5:
       Name: levels/level1
+      Dependencies: {}
+    Info_6:
+      Name: levels/level2
+      Dependencies: {}
+    Info_7:
+      Name: blocks/bigcanonblock
       Dependencies: {}

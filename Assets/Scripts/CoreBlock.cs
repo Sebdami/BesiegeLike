@@ -28,7 +28,6 @@ public class CoreBlock : Block {
         {
             if (isPlayer) // TODO : Check if player lost or update objective
             {
-                GameManager.instance.ExitPlayMode();
                 GameManager.instance.LoseLevel();
             }
             else
