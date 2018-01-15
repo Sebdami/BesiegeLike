@@ -69,7 +69,6 @@ public class BlockDatabase : MonoBehaviour {
             else
             {
                 string uri = "file:///" + Application.dataPath + "/../" + bundleName;
-                //string assetName = fileName.Remove(0, fileName.LastIndexOf('/'));
                 UnityWebRequest request = UnityWebRequest.GetAssetBundle(uri, 0);
                 yield return request.Send();
               

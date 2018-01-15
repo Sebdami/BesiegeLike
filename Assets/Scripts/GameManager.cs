@@ -132,7 +132,6 @@ public class GameManager : MonoBehaviour {
         if (!instance)
         {
             instance = this;
-            //DontDestroyOnLoad(this);
         }
         else
         {
@@ -279,7 +278,6 @@ public class GameManager : MonoBehaviour {
 
     void DeleteBlock(Block block)
     {
-        //For now only destroy it, add list gestion later
         Destroy(block.gameObject);
     }
 
@@ -318,7 +316,6 @@ public class GameManager : MonoBehaviour {
         
         Time.timeScale = 1.0f;
         GameState = GameStateEnum.Play;
-        //this.enabled = false;
     }
 
     public void ExitPlayMode()
@@ -327,7 +324,6 @@ public class GameManager : MonoBehaviour {
         foreach(GameObject go in projectiles)
             Destroy(go);
         VehicleSpawner.vehiclesRemaining = 0;
-        //this.enabled = true;
         Time.timeScale = 0.0f;
         GameState = GameStateEnum.Editor;
         LoadVehicle(Directories.CACHE_DIRECTORY + "CachedVehicle.tmp");

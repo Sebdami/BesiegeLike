@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class SpecialBlock : MonoBehaviour
 {
     [SerializeField]
-    protected KeyCode[] keys = new KeyCode[1]; // Set the default value on the prefab
+    protected KeyCode[] keys = new KeyCode[1]; // The default value must be set on the prefab
 
     protected bool isAttached = true;
 

@@ -5,8 +5,6 @@ using UnityEngine;
 public class VehicleSpawner : MonoBehaviour {
     public static int vehiclesRemaining = 0;
 
-    //[SerializeField]
-    //GameObject vehicleToSpawn;
     [SerializeField]
     TextAsset vehicleToSpawnFile;
     [SerializeField]

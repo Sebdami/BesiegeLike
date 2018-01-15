@@ -72,7 +72,6 @@ public class ReactorController : SpecialBlock {
         }
     }
 	
-	// Update is called once per frame
 	void FixedUpdate () {
         foreach(KeyCode key in keys)
         {

@@ -26,7 +26,7 @@ public class CoreBlock : Block {
         hp--;
         if(hp <= 0)
         {
-            if (isPlayer) // TODO : Check if player lost or update objective
+            if (isPlayer)
             {
                 GameManager.instance.LoseLevel();
             }
