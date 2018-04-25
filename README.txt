@@ -1,6 +1,3 @@
-Controles:
-
-Flèches / ZQSD (orientation), Espace et Shift (avancer/reculer) pour les réacteurs (suivant leur orientation)
-C pour les canons
-
-Objectif: Détruire tous les vaisseaux ennemis
+The current realease is in the archive "Damiens_Sebastien_CreaBesiegeSB.zip"
+It includes the updated build and source code.
+If you want to try the game or see the code, you can download this archive and ignore the "Project" folder :)
